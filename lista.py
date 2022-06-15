@@ -97,7 +97,7 @@ class Lista():
             aux = self.__inicio
             for i in range(indice):
                 aux = aux.sig
-            return aux.info            
+            return aux.info           
         else:
             return None
     
