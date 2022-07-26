@@ -79,6 +79,7 @@ class Lista():
         if(criterio(self.__inicio.info, campo) == clave):
             dato = self.__inicio.info
             self.__inicio = self.__inicio.sig
+            
         else:
             anterior = self.__inicio
             actual = self.__inicio.sig
@@ -89,7 +90,7 @@ class Lista():
             if(actual is not None):
                 dato = actual.info
                 anterior.sig = actual.sig
-
+                self.__tamanio=self.__tamanio-1      #para hacer andar un punto habia que restar el tamaño   
         return dato
 
     def obtener_elemento(self, indice):
@@ -97,7 +98,7 @@ class Lista():
             aux = self.__inicio
             for i in range(indice):
                 aux = aux.sig
-            return aux.info           
+            return aux.info            
         else:
             return None
     
@@ -111,3 +112,36 @@ class Lista():
         dato1=aux1.info.named_by.split(',')
         print(f'El ultimo dinosaurio en ser descubierto fue el {aux1.info.name}')
         print(f'Lo descubrio {dato1[0]}')
+
+    def listado_filtrado_especial(self,selec_dino,selec_nivel):
+        aux=self.__inicio
+        while(aux is not None):
+            if (aux.info.nombre in selec_dino and aux.info.nivel_alerta in selec_nivel):
+                print(f'Dinosaurio: {aux.info.nombre}')
+                print(f'Hora de alerta: {aux.info.hora}')
+                print(f'Zona: {aux.info.zona}')
+                print(f'Nivel de alerta: {aux.info.nivel_alerta}')
+                print()
+            aux=aux.sig
+
+    def crear_dos_colas(self,cola_carnivoros,cola_herbivoros):
+        aux=self.__inicio
+        while(aux is not None):
+            if (aux.info.tipo=='carnívoro')  and (aux.info.nivel_alerta=='high' or aux.info.nivel_alerta=='critical'):
+                cola_carnivoros.arribo(aux)        
+            elif(aux.info.tipo=='herbívoro') and (aux.info.nivel_alerta=='high' or aux.info.nivel_alerta=='critical'):
+                cola_herbivoros.arribo(aux)
+            aux=aux.sig
+        
+    def barrido_datos(self):
+        aux=self.__inicio
+        while(aux is not None):
+            print(f'{aux.info.nombre}, {aux.info.nivel_alerta}, {aux.info.hora}, {aux.info.zona}')
+            aux=aux.sig
+    
+    def barrido_compsognathus(self):
+        aux=self.__inicio
+        while(aux is not None):
+            if (aux.info.nombre=='Compsognathus'):
+                print(aux.info.zona)
+            aux=aux.sig
